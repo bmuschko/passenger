@@ -16,5 +16,5 @@
 package org.passenger.core.executor
 
 interface ExternalCommandExecutor {
-    ExecutionResult exec(String executable, String line)
+    ExecutionResult exec(String executable, String commandLine)
 }

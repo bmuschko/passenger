@@ -21,11 +21,11 @@ class AntExecutor implements ExternalCommandExecutor {
     static final RESULT_PROPERTY = 'cmdExit'
 
     @Override
-    ExecutionResult exec(String executable, String line) {
+    ExecutionResult exec(String executable, String commandLine) {
         def ant = new AntBuilder()
 
         ant.exec(outputproperty: OUTPUT_PROPERTY, errorproperty: ERROR_PROPERTY, resultproperty: RESULT_PROPERTY, failonerror: 'true', executable: executable) {
-            arg(line: line)
+            arg(line: commandLine)
         }
 
         new ExecutionResult(resultCode: ant.project.properties.cmdExit?.toInteger(), output: ant.project.properties.cmdOut, error: ant.project.properties.cmdErr)

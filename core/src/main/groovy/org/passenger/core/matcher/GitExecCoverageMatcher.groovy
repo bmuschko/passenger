@@ -29,11 +29,13 @@ class GitExecCoverageMatcher implements CoverageMatcher {
         ExternalCommandExecutor executor = new AntExecutor()
 
         files.each { file ->
-            String line = "--no-pager --git-dir=$projectDir/.git --work-tree=$projectDir blame $file"
-            ExecutionResult result = executor.exec(EXECUTABLE, line)
+            String commandLine = "--no-pager --git-dir=$projectDir/.git --work-tree=$projectDir blame $file"
+            ExecutionResult result = executor.exec(EXECUTABLE, commandLine)
 
             if(result.success) {
-                countUsernameMatches(coverageMatch, line)
+                result.output.eachLine { line ->
+                    countUsernameMatches(coverageMatch, line)
+                }
             }
             else {
                 throw new ExternalCommandException(result.error)
