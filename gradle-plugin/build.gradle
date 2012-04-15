@@ -1,0 +1,25 @@
+project(':gradle-plugin') {
+    archivesBaseName = 'gradle-passenger-plugin'
+
+    dependencies {
+        compile gradleApi(),
+                project(':core')
+    }
+
+    task uberjar(type: Jar, dependsOn: assemble) {
+        description = 'Creates Passenger Gradle plugin uberjar'
+
+        from files(sourceSets.main.output.classesDir)
+        from files(sourceSets.main.resources)
+        from files(project(':core').sourceSets.main.output.classesDir)
+
+        manifest {
+            attributes 'Implementation-Title': 'Gradle Passenger plugin',
+                       'Implementation-Version': version,
+                       'Built-By': System.getProperty('user.name'),
+                       'Built-Date': new Date(),
+                       'Built-JDK': System.getProperty('java.version'),
+                       'Built-Gradle': gradle.gradleVersion
+        }
+    }
+}
