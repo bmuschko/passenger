@@ -20,6 +20,8 @@ import org.passenger.core.collector.FileCollectorFactory
 import org.passenger.core.matcher.CoverageMatch
 import org.passenger.core.matcher.CoverageMatcher
 import org.passenger.core.matcher.GitExecCoverageMatcher
+import org.passenger.core.report.ReportGenerator
+import org.passenger.core.report.XmlReportGenerator
 import org.passenger.core.statistic.PercentageUserStatCalculator
 import org.passenger.core.statistic.UserStatCalculator
 
@@ -33,7 +35,8 @@ class PassengerRunner {
 
         UserStatCalculator userStatCalculator = new PercentageUserStatCalculator()
         Map<String, Integer> userPercentages = userStatCalculator.calculate(coverageMatch.lineCountPerUsername)
-        println "lineCountPerUsername: " + coverageMatch.lineCountPerUsername
-        println "Result: " + userPercentages
+
+        ReportGenerator reportGenerator = new XmlReportGenerator()
+        reportGenerator.generate(new File('passenger.xml'), userPercentages)
     }
 }
