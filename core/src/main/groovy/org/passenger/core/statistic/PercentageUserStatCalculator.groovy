@@ -13,8 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.passenger.core.report
+package org.passenger.core.statistic
 
-interface UserStatCalculator {
-    Map<String, Integer> calculate(Map<String, Long> lineCountPerUsername)
+class PercentageUserStatCalculator implements UserStatCalculator {
+    @Override
+    Map<String, Integer> calculate(Map<String, Long> lineCountPerUsername) {
+        def usernamePercentages = [:]
+        long allLineMatches = 0L
+        lineCountPerUsername.count { allLineMatches += it.value }
+
+        lineCountPerUsername.each { key, value ->
+            def percentage = (allLineMatches / value) * 100
+            usernamePercentages[key] = percentage
+        }
+
+        usernamePercentages
+    }
 }

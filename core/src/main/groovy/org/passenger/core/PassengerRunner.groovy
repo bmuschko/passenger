@@ -20,8 +20,8 @@ import org.passenger.core.collector.FileCollectorFactory
 import org.passenger.core.matcher.CoverageMatch
 import org.passenger.core.matcher.CoverageMatcher
 import org.passenger.core.matcher.GitExecCoverageMatcher
-import org.passenger.core.report.PercentageUserStatCalculator
-import org.passenger.core.report.UserStatCalculator
+import org.passenger.core.statistic.PercentageUserStatCalculator
+import org.passenger.core.statistic.UserStatCalculator
 
 class PassengerRunner {
     void run(RunnerOptions runnerOptions) {
